@@ -1,0 +1,21 @@
+<?php
+/**
+ *
+ */
+
+/**
+ * hook_menu
+ */
+function svg_inpage_menu() {
+  $items = array();
+  $items['svgtest'] = array(
+    'title' => 'SVG test',
+    'description' => 'svg',
+    'page callback' => 'svg_inpage_test',
+    'access callback' => true,
+    //'access arguments' => array('access svg_inpage'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'svg_inpage.page.inc'
+  );
+  return $items;
+}
