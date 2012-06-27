@@ -4,8 +4,29 @@
  */
 
 /**
- *
+ * function svg_inpage.page_create_page
  */
+function svg_inpage_create_page($pagename) {
+  $out = array();
+  $svg_pages = svg_inpage_pages();
+  if (isset($svg_pages[$pagename])) {
+    $page = $svg_pages[$pagename];
+    $svg_string = svg_inpage_svg_string($page['svg file']);
+    $out = array(
+      '#markup' => $svg_string,
+    );
+    if (isset($page['js callback'])) {
+      $page['js callback']();
+    }
+  }
+  else {
+    // anounce problem
+    drupal_set_message("Page name $pagename is not defined.", 'error');
+    // @todo log it
+  }
+  return $out;
+}
+
 /**
  * function svg_inpage_test
  */

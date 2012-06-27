@@ -1,6 +1,11 @@
 <?php
 /**
+ * @file
+ * A module to include SVG files in your pages.
  *
+ * @todo
+ * add an own hook that will allow other modules to define their pages
+ * create a static array for that
  */
 
 /**
@@ -12,10 +17,103 @@ function svg_inpage_menu() {
     'title' => 'SVG test',
     'description' => 'svg',
     'page callback' => 'svg_inpage_test',
-    'access callback' => true,
-    //'access arguments' => array('access svg_inpage'),
+    'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
-    'file' => 'svg_inpage.page.inc'
+    'file' => 'svg_inpage.page.inc',
   );
+  $svgitems = svg_inpage_menu_items();
+  if (is_array($svgitems)) {
+    $items += $svgitems;
+  }
   return $items;
+}
+
+/**
+ * function svg_inpage_menu_items
+ * @todo add config for default title, check which menu keys parts are necessary
+ * @todo consider passing other arguments
+ */
+function svg_inpage_menu_items() {
+  $menu_items = array();
+  $svg_pages = svg_inpage_pages(TRUE);
+  // Define menu keys that can be overriden by settings.
+  $menu_keys = array('title','description');
+  foreach ($svg_pages as $page_key => $page) {
+    // Set defaults for the menu item.
+    $menu_items[$page_key] = array(
+      'title' => 'svg',
+      'page callback' => 'svg_inpage_create_page',
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+      'file' => 'svg_inpage.page.inc',
+      'page arguments' => array($page_key),
+    );
+    // Eventually override by values provided from hook.
+    foreach ($menu_keys as $menu_key) {
+      if (isset($page[$menu_key])) {
+        $menu_items[$page_key][$menu_key] = $page[$menu_key];
+      }
+    }
+  }
+  return $menu_items;
+}
+
+/**
+ * retreive list of pages defined by modules
+ */
+function svg_inpage_pages($reset = FALSE) {
+  $pages = &drupal_static(__FUNCTION__);
+  if (!isset($pages) || $reset) {
+    $pages = module_invoke_all('svg_inpage_pages');
+    // drupal_alter('action_info', $actions);
+  }
+  return (array) $pages;
+}
+
+/**
+ * example hook implementation
+ * @todo add option to remove test page (here or in menu ?)
+ */
+function svg_inpage_svg_inpage_pages() {
+  $pages = array();
+  $pages['svgtest2'] = array(
+    'title' => 'SVG test',
+    'description' => 'svg',
+    'svg file' => array(
+      'filepath' => drupal_get_path('module', 'svg_inpage') . "/examples/",
+      'filename' => 'test2.svg',
+    ),
+  );
+  return $pages;
+}
+
+/**
+ * function svg_inpage_svg_string
+ *
+ * @param array $file
+ *   array providing info about the file as defined in the hook
+ *
+ * @return string
+ *   the svg string to be included in html
+ * @todo check if file exists
+ * @todo consider caching the file (?) after applying he changes
+ * @todo allow plugins to manipulate the file
+ */
+function svg_inpage_svg_string($file) {
+  $svg_file = file($file['filepath'] . $file['filename']);
+
+  // Remove the beginning lines.
+  // TODO: make this optional / configurable.
+  $svg_string = '';
+  $found_svg_tag = FALSE;
+  foreach ($svg_file as $line) {
+    if (substr($line, 0, 4) == '<svg') {
+      $found_svg_tag = TRUE;
+    }
+    if ($found_svg_tag) {
+      $svg_string .= $line;
+      // TODO: make newline optional here ?
+    }
+  }
+  return $svg_string;
 }
