@@ -46,6 +46,10 @@ function svg_inpage_block_view($delta = '') {
   if (isset($svgblocks[$delta])) {
     $blockdef = $svgblocks[$delta];
     $block = svg_inpage_show_block($blockdef);
+    if (isset($blockdef['js callback'])) {
+      $blockdef['js callback']();
+    }
+
   } else {
     $block['subject'] = t('Block not found');
     $block['content'] = 'There must have been an error somewhere.';
