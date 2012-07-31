@@ -29,7 +29,58 @@ function svg_inpage_menu() {
 }
 
 /**
- * function svg_inpage_menu_items
+ * Implements hook_block_info().
+ */
+function svg_inpage_block_info() {
+  $blocks = array();
+  $blocks += svg_inpage_blocklist();
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function svg_inpage_block_view($delta = '') {
+  $block = array();
+  $svgblocks = svg_inpage_blocks();
+  if (isset($svgblocks[$delta])) {
+    $blockdef = $svgblocks[$delta];
+    $block = svg_inpage_show_block($blockdef);
+  } else {
+    $block['subject'] = t('Block not found');
+    $block['content'] = 'There must have been an error somewhere.';
+  }
+  return $block;
+}
+
+/**
+ * Provide a list of blocks.
+ */
+function svg_inpage_blocklist() {
+  $blocks = array();
+  $svgblocks = svg_inpage_blocks();
+  foreach ($svgblocks as $blockdelta => $blockdef) {
+    $blocks[$blockdelta] = array(
+      'info' => $blockdef['title'],
+      );
+  }
+  return $blocks;
+}
+
+/**
+ * Invoke the hook to see what others have.
+ */
+function svg_inpage_blocks($reset = FALSE) {
+  $blocks = &drupal_static(__FUNCTION__);
+  if (!isset($blocks) || $reset) {
+    $blocks = module_invoke_all('svg_inpage_blocks');
+    // drupal_alter('action_info', $actions);
+  }
+  return (array) $blocks;
+}
+
+/**
+ * Create menu items from pages list as defined by hooks.
  * @todo add config for default title, check which menu keys parts are necessary
  * @todo consider passing other arguments
  */
@@ -42,7 +93,7 @@ function svg_inpage_menu_items() {
     // Set defaults for the menu item.
     $menu_items[$page_key] = array(
       'title' => 'svg',
-      'page callback' => 'svg_inpage_create_page',
+      'page callback' => 'svg_inpage_display_page',
       'access callback' => TRUE,
       'type' => MENU_NORMAL_ITEM,
       'file' => 'svg_inpage.page.inc',
@@ -59,7 +110,7 @@ function svg_inpage_menu_items() {
 }
 
 /**
- * retreive list of pages defined by modules
+ * Retreive list of pages defined by modules
  */
 function svg_inpage_pages($reset = FALSE) {
   $pages = &drupal_static(__FUNCTION__);
@@ -71,7 +122,7 @@ function svg_inpage_pages($reset = FALSE) {
 }
 
 /**
- * example hook implementation
+ * example pages hook implementation
  * @todo add option to remove test page (here or in menu ?)
  */
 function svg_inpage_svg_inpage_pages() {
@@ -86,6 +137,35 @@ function svg_inpage_svg_inpage_pages() {
   );
   return $pages;
 }
+
+/**
+ * example blocks hook implementation
+ */
+function svg_inpage_svg_inpage_blocks() {
+  $blocks = array();
+  $blocks['svginpxmpblk'] = array(
+    'title' => 'Svg in example block',
+    'subject' => 'Look at the example svg',
+    'svg file' => array(
+      'filepath' => drupal_get_path('module', 'svg_inpage') . "/examples/",
+      'filename' => 'test2.svg',
+    ),
+  );
+  return $blocks;
+}
+
+/**
+ * Show a block from a given block definition
+ *
+ * @todo add a posibility to provide svg directly, w/o a file.
+ */
+function svg_inpage_show_block($blockdef) {
+  $block = array();
+  $block['subject'] = $blockdef['subject'];
+  $block['content'] = svg_inpage_svg_string($blockdef['svg file']);
+  return $block;
+}
+
 
 /**
  * function svg_inpage_svg_string

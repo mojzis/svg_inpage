@@ -6,7 +6,7 @@
 /**
  * function svg_inpage.page_create_page
  */
-function svg_inpage_create_page($pagename) {
+function svg_inpage_display_page($pagename) {
   $out = array();
   $svg_pages = svg_inpage_pages();
   if (isset($svg_pages[$pagename])) {
