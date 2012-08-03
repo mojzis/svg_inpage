@@ -1,18 +1,20 @@
 # SVG in page
 
 ## what it does
-* include selected filein a page
+* include selected file in a page or a block
 
 ## how to use
 ### configuration
+* thus far none ;)
+
 ### site builders
-* go to list of svg pages
+* sorry, at the moment you to write some code
 
 ### module creators
 * see example
 * add a hook to define a page or a block
 
-## plan :
+## plans & ideas :
 ### make the code more OO
 * file , page ?
 
@@ -28,7 +30,8 @@
 ### caching
 * cache the changed files !
 * cache the definitions (?)
-  * probably doesnt make sense for menu - allready cached
+  * pages
+  * blocks
 
 ### configuration
 * different methods of including the file
