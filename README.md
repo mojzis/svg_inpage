@@ -1,4 +1,5 @@
 # SVG in page
+Helps to add a piece of SVG into your HTML(5). That can be useful i.e. when you want to write some javascript for the graphics.
 
 ## what it does
 * include selected file in a page or a block
@@ -8,19 +9,20 @@
 * thus far none ;)
 
 ### site builders
-* sorry, at the moment you to write some code
+* sorry, at the moment you have to write some code
 
 ### module creators
 * see example
 * add a hook to define a page or a block
 
 ## plans & ideas :
-### make the code more OO
-* file , page ?
 
-### add tests
+### configuration
+* different methods of including the file
+* try to find a js library to show the svg in older browsers
+* attempt a raphael display, too
 
-### pages and files
+### own pages
 * create an entity with :
   * file
   * address
@@ -33,11 +35,10 @@
   * pages
   * blocks
 
-### configuration
-* different methods of including the file
-* try to find a js library to show the svg in older browsers
-* attempt a raphael display, too
-* disable test path
+### add tests
+
+### make the code more OO
+* file , page ?
 
 ### EXAMPLE MODULE
 

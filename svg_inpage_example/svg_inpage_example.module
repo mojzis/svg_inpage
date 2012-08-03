@@ -1,0 +1,40 @@
+<?php
+/**
+ * @file
+ * Example hooks for svg_inpage module.
+ * Example file from http://en.wikipedia.org/wiki/File:Blank_Map-Africa.svg
+ */
+
+/**
+ * example pages hook implementation
+ */
+function svg_inpage_example_svg_inpage_pages() {
+  $pages = array();
+  $pages['svg_inpage_ex_africa'] = array(
+    'title' => 'SVG test',
+    'description' => 'svg',
+    'svg file' => array(
+      'filepath' => drupal_get_path('module', 'svg_inpage_example') . "/examples/",
+      'filename' => 'africa.svg',
+    ),
+  );
+  return $pages;
+}
+
+
+/**
+ * example blocks hook implementation
+ */
+function svg_inpage_example_svg_inpage_blocks() {
+  $blocks = array();
+  $blocks['svginpxmpblk'] = array(
+    'title' => 'Svg in example block',
+    'subject' => 'Look at the example svg',
+    'svg file' => array(
+      'filepath' => drupal_get_path('module', 'svg_inpage_example') . "/examples/",
+      'filename' => 'test2.svg',
+    ),
+  );
+  return $blocks;
+}
+

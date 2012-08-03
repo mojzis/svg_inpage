@@ -1,0 +1,5 @@
+name = svg_inpage_example
+description = Example module for hooks of svg_inpage
+core = 7.x
+dependencies[] = svg_inpage
+#configure = admin/config/svg_inpage_example
