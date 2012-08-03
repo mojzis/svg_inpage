@@ -2,10 +2,8 @@
 /**
  * @file
  * A module to include SVG files in your pages.
- *
- * @todo
- * add an own hook that will allow other modules to define their pages
- * create a static array for that
+ * Defines 2 hooks that other modules can use.
+ * See example module.
  */
 
 /**
@@ -123,39 +121,6 @@ function svg_inpage_pages($reset = FALSE) {
     // drupal_alter('action_info', $actions);
   }
   return (array) $pages;
-}
-
-/**
- * example pages hook implementation
- * @todo add option to remove test page (here or in menu ?)
- */
-function svg_inpage_svg_inpage_pages() {
-  $pages = array();
-  $pages['svgtest2'] = array(
-    'title' => 'SVG test',
-    'description' => 'svg',
-    'svg file' => array(
-      'filepath' => drupal_get_path('module', 'svg_inpage') . "/examples/",
-      'filename' => 'test2.svg',
-    ),
-  );
-  return $pages;
-}
-
-/**
- * example blocks hook implementation
- */
-function svg_inpage_svg_inpage_blocks() {
-  $blocks = array();
-  $blocks['svginpxmpblk'] = array(
-    'title' => 'Svg in example block',
-    'subject' => 'Look at the example svg',
-    'svg file' => array(
-      'filepath' => drupal_get_path('module', 'svg_inpage') . "/examples/",
-      'filename' => 'test2.svg',
-    ),
-  );
-  return $blocks;
 }
 
 /**

@@ -12,8 +12,10 @@ Helps to add a piece of SVG into your HTML(5). That can be useful i.e. when you 
 * sorry, at the moment you have to write some code
 
 ### module creators
-* see example
 * add a hook to define a page or a block
+  * svg_inpage_pages
+  * svg_inpage_blocks
+* see example module svg_inpage_example
 
 ## plans & ideas :
 
@@ -40,9 +42,6 @@ Helps to add a piece of SVG into your HTML(5). That can be useful i.e. when you 
 ### make the code more OO
 * file , page ?
 
-### EXAMPLE MODULE
-
-
 ### javascript
 * jQuery('svg g').attr('id')
 
@@ -56,3 +55,4 @@ Helps to add a piece of SVG into your HTML(5). That can be useful i.e. when you 
 * anything else ?
 
 ### advanced help
+* info about SVG in HTML support
