@@ -1,5 +1,6 @@
 # SVG in page
 Helps to add a piece of SVG into your HTML(5). That can be useful i.e. when you want to write some javascript for the graphics.
+Simply take the SVG file as came from your colleague and it will be displayed on a page or in a block.
 
 ## what it does
 * include selected file in a page or a block
@@ -16,6 +17,7 @@ Helps to add a piece of SVG into your HTML(5). That can be useful i.e. when you 
   * svg_inpage_pages
   * svg_inpage_blocks
 * see example module svg_inpage_example
+* best results will be acheived with an HTML5 theme
 
 ## plans & ideas :
 
@@ -55,4 +57,5 @@ Helps to add a piece of SVG into your HTML(5). That can be useful i.e. when you 
 * anything else ?
 
 ### advanced help
-* info about SVG in HTML support
+* info about SVG in HTML
+  * browser support

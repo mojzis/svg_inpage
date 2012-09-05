@@ -37,4 +37,3 @@ function svg_inpage_example_svg_inpage_blocks() {
   );
   return $blocks;
 }
-

@@ -48,7 +48,8 @@ function svg_inpage_block_view($delta = '') {
       $blockdef['js callback']();
     }
 
-  } else {
+  }
+  else {
     $block['subject'] = t('Block not found');
     $block['content'] = 'There must have been an error somewhere.';
   }
@@ -64,7 +65,7 @@ function svg_inpage_blocklist() {
   foreach ($svgblocks as $blockdelta => $blockdef) {
     $blocks[$blockdelta] = array(
       'info' => $blockdef['title'],
-      );
+    );
   }
   return $blocks;
 }
